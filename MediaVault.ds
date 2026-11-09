@@ -1,0 +1,4580 @@
+/*
+ * Author       : s.pragadeesh2007488
+ * Generated on : 09-Nov-2026 17:43:49
+ * Version      : 1.0
+ */
+ application "MediaVault"
+ {
+ 	date format = "dd-MMM-yyyy"
+ 	time zone = "Asia/Kolkata"
+ 	time format = "24-hr"
+
+ 	forms
+	{
+		form Content
+		{
+			success message = "Content Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have unique Content_ID
+			(
+    			type = text
+				displayname = "Content ID"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Title
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Content_Type
+			(
+				type = picklist
+				displayname = "Content Type"
+				maxchar = 100
+				values = {"Movie","Song","Web Series","Music Video","Documentery"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Content_Type1
+			(
+				type = picklist
+				displayname = "Language"
+				maxchar = 100
+				values = {"English","Tamil","Hindi","Telugu","Kannada"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Release_Year
+			(
+				type = number
+				displayname = "Release Year"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Rights_Status
+			(
+				type = picklist
+				displayname = "Rights Status"
+				maxchar = 100
+				values = {"Available","Licensed","Restricted","Expired"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Description
+			(
+    			type = textarea
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Ownership_Status
+			(
+				type = picklist
+				displayname = "Ownership Status"
+				maxchar = 100
+				values = {"Pending","Partially Verified","Verified","Rejected"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Rights_Ownership
+			(
+				type = grid
+				displayname = "Rights Ownership"
+				must have Rights_Holders
+				(
+					type = picklist	
+					displayname = "Rights Holders"
+					values  = Rights_Holders.ID
+    				displayformat = [Rights_Holder_ID]
+					sortorder = ascending
+					width = medium
+				)
+				must have Ownership_Percentage
+				(
+					type = decimal
+					displayname = "Ownership Percentage"
+					width = medium
+				)
+	 			row = 2
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Content_Ownership
+		{
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have Content
+			(
+				type = picklist	
+				values  = Content.ID
+    			displayformat = [Title]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Rights_Holders
+			(
+				type = picklist	
+				displayname = "Rights Holders"
+				values  = Rights_Holders.ID
+    			displayformat = [Name]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Ownership_Percentage
+			(
+				type = decimal
+				displayname = "Ownership Percentage"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Verification_Status
+			(
+				type = picklist
+				displayname = "Verification Status"
+				maxchar = 100
+				values = {"Verified","Pending","Rejected"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Supporting_Document
+			(
+    			type = upload file
+				displayname = "Supporting Document"
+				browse = local_drive
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Verified_By
+			(
+    			type = text
+				displayname = "Verified By"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Verification_Date
+			(
+    			type = date
+				displayname = "Verification Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Distribution_Requests
+		{
+			displayname = "Distribution Requests"
+			success message = "Distribution Request Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have unique Request_ID
+			(
+    			type = text
+				displayname = "Request ID"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Content
+			(
+				type = picklist	
+				values  = Content.ID
+    			displayformat = [Title]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Platform
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Requested_Territory
+			(
+				type = picklist
+				displayname = "Requested Territory"
+				maxchar = 100
+				values = {"Worldwide","India","USA","UK","Canada","Australia","Singapore","Other"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Requested_Start_Date
+			(
+    			type = date
+				displayname = "Requested Start Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Requested_End_Date
+			(
+    			type = date
+				displayname = "Requested End Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Expected_Revenue
+			(
+				type = decimal
+				displayname = "Expected Revenue"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Request_Status
+			(
+				type = picklist
+				displayname = "Request Status"
+				maxchar = 100
+				values = {"Pending","Approved","Rejected","Rights Violation"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Remarks
+			(
+    			type = textarea
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Licenses
+		{
+			success message = "License Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have unique License_ID
+			(
+    			type = text
+				displayname = "License ID"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Content
+			(
+				type = picklist	
+				values  = Content.ID
+    			displayformat = [Title]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Licensee_Name
+			(
+    			type = text
+				displayname = "Licensee Name"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Territory
+			(
+				type = picklist
+				maxchar = 100
+				values = {"Worldwide","India","USA","UK","Canada","Australia","Singapore","Other"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have License_Start_Date
+			(
+    			type = date
+				displayname = "License Start Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have License_End_Date
+			(
+    			type = date
+				displayname = "License End Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			License_Fee
+			(
+				type = decimal
+				displayname = "License Fee"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Royalty_Percentage
+			(
+				type = decimal
+				displayname = "Royalty Percentage"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have License_Status
+			(
+				type = picklist
+				displayname = "License Status"
+				maxchar = 100
+				values = {"Active","Pending","Expired","Suspended"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			License_Notes
+			(
+    			type = textarea
+				displayname = "License Notes"
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Revenue
+		{
+			success message = "Revenue Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have Revenue_ID
+			(
+    			type = text
+				displayname = "Revenue ID"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Content
+			(
+				type = picklist	
+				values  = Content.ID
+    			displayformat = [Title]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Licenses
+			(
+				type = picklist	
+				values  = Licenses.ID
+    			displayformat = [License_ID]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Platform
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Territory
+			(
+				type = picklist
+				maxchar = 100
+				values = {"Worldwide","India","USA","UK","Canada","Australia","Singapore","Other"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Revenue_Date
+			(
+    			type = date
+				displayname = "Revenue Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Revenue_Amount
+			(
+				type = decimal
+				displayname = "Revenue Amount"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Revenue_Source
+			(
+				type = picklist
+				displayname = "Revenue Source"
+				maxchar = 100
+				values = {"Streaming","Theatrical","Music Platform","Digital Sales","TV Broadcasting","Other"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Notes
+			(
+    			type = textarea
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Rights_Holders
+		{
+			displayname = "Rights Holders"
+			success message = "Rights Holder Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have unique Rights_Holder_ID
+			(
+    			type = text
+				displayname = "Rights Holder ID"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Name
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Holder_Type
+			(
+				type = picklist
+				displayname = "Holder Type"
+				maxchar = 100
+				values = {"Individual","Company","Production House","Music Label","Artist"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Email
+			(
+    			type = email
+				maxchar = 80
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			Phone_Number
+			(
+    			type = phonenumber
+				displayname = "Phone"
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			Address
+			(
+    			type = textarea
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Rights_Violations
+		{
+			displayname = "Rights Violations"
+			success message = "Rights Violation Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have Violation_ID
+			(
+    			type = text
+				displayname = "Violation ID"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Distribution_Requests
+			(
+				type = picklist	
+				displayname = "Distribution Requests"
+				values  = Distribution_Requests.ID
+    			displayformat = [Request_ID]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Content
+			(
+				type = picklist	
+				values  = Content.ID
+    			displayformat = [Content_ID]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Territory
+			(
+				type = picklist
+				maxchar = 100
+				values = {"India","USA","UK","Canada","Australia","Singapore","Worldwide","Other"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Violation_Date
+			(
+    			type = date
+				displayname = "Violation Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Reason
+			(
+    			type = textarea
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Severity
+			(
+				type = picklist
+				maxchar = 100
+				values = {"Low","Medium","High","Critical"}
+				private = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Violation_Status
+			(
+				type = picklist
+				displayname = "Violation Status"
+				maxchar = 100
+				values = {"Open","Under Review","Resolved","Closed"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			AI_Explanation
+			(
+    			type = textarea
+				displayname = "AI Explanation"
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Notes
+			(
+    			type = textarea
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Royalty_Payments
+		{
+			displayname = "Royalty Payments"
+			success message = "Royalty Payment Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have Payment_ID
+			(
+    			type = text
+				displayname = "Payment ID"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Revenue
+			(
+				type = picklist	
+				values  = Revenue.ID
+    			displayformat = [Revenue_ID]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Rights_Holders
+			(
+				type = picklist	
+				displayname = "Rights Holders"
+				values  = Rights_Holders.ID
+    			displayformat = [Rights_Holder_ID]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Royalty_Rules
+			(
+				type = picklist	
+				displayname = "Royalty Rules"
+				values  = Royalty_Rules.ID
+    			displayformat = [Rule_ID]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Revenue_Amount
+			(
+				type = decimal
+				displayname = "Revenue Amount"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Royalty_Percentage
+			(
+				type = decimal
+				displayname = "Royalty Percentage"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Royalty_Amount
+			(
+				type = decimal
+				displayname = "Royalty Amount"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Payment_Date
+			(
+    			type = date
+				displayname = "Payment Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Payment_Status
+			(
+				type = picklist
+				displayname = "Payment Status"
+				maxchar = 100
+				values = {"Pending","Calculated","Paid","Cancelled"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Notes
+			(
+    			type = textarea
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Royalty_Rules
+		{
+			displayname = "Royalty Rules"
+			success message = "Royalty Rule Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have unique Rule_ID
+			(
+    			type = text
+				displayname = "Rule ID"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Licenses
+			(
+				type = picklist	
+				values  = Licenses.ID
+    			displayformat = [License_ID]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Rights_Holders
+			(
+				type = picklist	
+				displayname = "Rights Holders"
+				values  = Rights_Holders.ID
+    			displayformat = [Rights_Holder_ID]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Royalty_Percentage
+			(
+				type = decimal
+				displayname = "Royalty Percentage"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Effective_From
+			(
+    			type = date
+				displayname = "Effective From"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Effective_To
+			(
+    			type = date
+				displayname = "Effective To"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Rule_Status
+			(
+				type = picklist
+				displayname = "Rule Status"
+				maxchar = 100
+				values = {"Active","Inactive","Expired"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+	}
+	reports
+	{
+		default list All_Content
+		{
+			displayName = "All Content"
+			show all rows from Content    
+			(
+				Content_ID as "Content ID"
+				Title
+				Content_Type as "Content Type"
+				Content_Type1 as "Language"
+				Release_Year as "Release Year"
+				Rights_Status as "Rights Status"
+				Description
+				Rights_Ownership.Rights_Holders as "Rights Ownership"
+				Ownership_Status as "Ownership Status"
+			)
+		}
+		default list All_Rights_Holders
+		{
+			displayName = "All Rights Holders"
+			show all rows from Rights_Holders    
+			(
+				Rights_Holder_ID as "Rights Holder ID"
+				Name
+				Holder_Type as "Holder Type"
+				Email
+				Phone_Number as "Phone"
+				(
+					displayformat = plainnumber 
+				)
+				Address
+			)
+		}
+		default list All_Licenses
+		{
+			displayName = "All Licenses"
+			show all rows from Licenses    
+			(
+				License_ID as "License ID"
+				Content
+				Licensee_Name as "Licensee Name"
+				Territory
+				License_Start_Date as "License Start Date"
+				License_End_Date as "License End Date"
+				License_Fee as "License Fee"
+				Royalty_Percentage as "Royalty Percentage"
+				License_Status as "License Status"
+				License_Notes as "License Notes"
+			)
+		}
+		default list All_Distribution_Requests
+		{
+			displayName = "All Distribution Requests"
+			show all rows from Distribution_Requests    
+			(
+				Request_ID as "Request ID"
+				Content
+				Platform
+				Requested_Territory as "Requested Territory"
+				Requested_Start_Date as "Requested Start Date"
+				Requested_End_Date as "Requested End Date"
+				Expected_Revenue as "Expected Revenue"
+				Request_Status as "Request Status"
+				Remarks
+			)
+		}
+		default list All_Revenues
+		{
+			displayName = "All Revenues"
+			show all rows from Revenue    
+			(
+				Revenue_ID as "Revenue ID"
+				Content
+				Licenses
+				Platform
+				Territory
+				Revenue_Date as "Revenue Date"
+				Revenue_Amount as "Revenue Amount"
+				Revenue_Source as "Revenue Source"
+				Notes
+			)
+		}
+		default list All_Royalty_Rules
+		{
+			displayName = "All Royalty Rules"
+			show all rows from Royalty_Rules    
+			(
+				Rule_ID as "Rule ID"
+				Licenses
+				Rights_Holders as "Rights Holders"
+				Royalty_Percentage as "Royalty Percentage"
+				Effective_From as "Effective From"
+				Effective_To as "Effective To"
+				Rule_Status as "Rule Status"
+			)
+		}
+		default list All_Royalty_Payments
+		{
+			displayName = "All Royalty Payments"
+			show all rows from Royalty_Payments    
+			(
+				Payment_ID as "Payment ID"
+				Revenue
+				Rights_Holders as "Rights Holders"
+				Royalty_Rules as "Royalty Rules"
+				Revenue_Amount as "Revenue Amount"
+				Royalty_Percentage as "Royalty Percentage"
+				Royalty_Amount as "Royalty Amount"
+				Payment_Date as "Payment Date"
+				Payment_Status as "Payment Status"
+				Notes
+			)
+		}
+		default list All_Rights_Violations
+		{
+			displayName = "All Rights Violations"
+			show all rows from Rights_Violations    
+			(
+				Violation_ID as "Violation ID"
+				Distribution_Requests as "Distribution Requests"
+				Content
+				Territory
+				Violation_Date as "Violation Date"
+				Reason
+				Severity
+				Violation_Status as "Violation Status"
+				Notes
+				AI_Explanation as "AI Explanation"
+			)
+		}
+		list Active_Licenses
+		{
+			displayName = "Active Licenses"
+			show all rows from Licenses  [License_Status == "Active" && License_End_Date in next 3650 days]  
+			(
+				License_ID as "License ID"
+				Content
+				Licensee_Name as "Licensee Name"
+				Territory
+				License_Start_Date as "License Start Date"
+				License_End_Date as "License End Date"
+				License_Fee as "License Fee"
+				Royalty_Percentage as "Royalty Percentage"
+				License_Status as "License Status"
+				License_Notes as "License Notes"
+			)
+		}
+		list Revenue_Report
+		{
+			displayName = "Revenue Report"
+			show all rows from Revenue    
+			(
+				Revenue_ID as "Revenue ID"
+				Content
+				Licenses
+				Platform
+				Territory
+				Revenue_Date as "Revenue Date"
+				Revenue_Amount as "Revenue Amount"
+				Revenue_Source as "Revenue Source"
+				Notes
+			)
+		}
+		list Royalty_Payments_Report
+		{
+			displayName = "Royalty Payments Report"
+			show all rows from Royalty_Payments    
+			(
+				Payment_ID as "Payment ID"
+				Revenue
+				Rights_Holders as "Rights Holders"
+				Royalty_Rules as "Royalty Rules"
+				Revenue_Amount as "Revenue Amount"
+				Royalty_Percentage as "Royalty Percentage"
+				Royalty_Amount as "Royalty Amount"
+				Payment_Date as "Payment Date"
+				Payment_Status as "Payment Status"
+				Notes
+			)
+		}
+		list Rights_Violations_Report
+		{
+			displayName = "Rights Violations Report"
+			show all rows from Rights_Violations    
+			(
+				Violation_ID as "Violation ID"
+				Distribution_Requests as "Distribution Requests"
+				Content
+				Territory
+				Violation_Date as "Violation Date"
+				Reason
+				Severity
+				Violation_Status as "Violation Status"
+				Notes
+			)
+		}
+		list Distribution_Requests_Report
+		{
+			displayName = "Distribution Requests Report"
+			show all rows from Distribution_Requests    
+			(
+				Request_ID as "Request ID"
+				Content
+				Platform
+				Requested_Territory as "Requested Territory"
+				Requested_Start_Date as "Requested Start Date"
+				Requested_End_Date as "Requested End Date"
+				Expected_Revenue as "Expected Revenue"
+				Request_Status as "Request Status"
+				Remarks
+			)
+		}
+		list Rights_Risk_Analytics
+		{
+			displayName = "Rights Risk Analytics"
+			show all rows from Rights_Violations    
+			(
+				Violation_ID as "Violation ID"
+				Distribution_Requests as "Distribution Requests"
+				Content
+				Territory
+				Violation_Date as "Violation Date"
+				Reason
+				Severity
+				Violation_Status as "Violation Status"
+				Notes
+			)
+		}
+		list Content_ownership_report2
+		{
+			displayName = "Content ownership report"
+			show all rows from Content_Ownership    
+			(
+				Content
+				Rights_Holders as "Rights Holders"
+				Ownership_Percentage as "Ownership Percentage"
+				Verification_Status as "Verification Status"
+				Supporting_Document as "Supporting Document"
+				Verified_By as "Verified By"
+				Verification_Date as "Verification Date"
+			)
+		}
+		list My_Requests
+		{
+			displayName = "My Requests."
+			show all rows from Distribution_Requests  [Added_User == zoho.loginuser]  
+			(
+				Request_ID as "Request ID"
+				Content
+				Platform
+				Requested_Territory as "Requested Territory"
+				Requested_Start_Date as "Requested Start Date"
+				Requested_End_Date as "Requested End Date"
+				Expected_Revenue as "Expected Revenue"
+				Request_Status as "Request Status"
+				Remarks
+			)
+		}
+		list My_content
+		{
+			displayName = "My content"
+			show all rows from Content  [Added_User == zoho.loginuser]  
+			(
+				Content_ID as "Content ID"
+				Title
+				Content_Type as "Content Type"
+				Content_Type1 as "Language"
+				Release_Year as "Release Year"
+				Rights_Status as "Rights Status"
+				Description
+				Ownership_Status as "Ownership Status"
+			)
+		}
+		list My_Ownership_Claims
+		{
+			displayName = "My Ownership Claims"
+			show all rows from Content_Ownership  [Added_User == zoho.loginuser]  
+			(
+				Content
+				Rights_Holders as "Rights Holders"
+				Ownership_Percentage as "Ownership Percentage"
+				Verification_Status as "Verification Status"
+				Supporting_Document as "Supporting Document"
+				Verified_By as "Verified By"
+				Verification_Date as "Verification Date"
+			)
+		}
+		list My_Rights_Holders
+		{
+			displayName = "My Rights Holders"
+			show all rows from Rights_Holders  [Added_User == zoho.loginuser]  
+			(
+				Rights_Holder_ID as "Rights Holder ID"
+				Name
+				Holder_Type as "Holder Type"
+				Email
+				Phone_Number as "Phone"
+				(
+					displayformat = plainnumber 
+				)
+				Address
+			)
+		}
+		list Licenses_Expiring_Soon
+		{
+			displayName = "Licenses Expiring Soon"
+			show all rows from Licenses  [License_Status == "Active" && License_End_Date in next 10 days]  
+			(
+				License_ID as "License ID"
+				Content
+				Licensee_Name as "Licensee Name"
+				Territory
+				License_Start_Date as "License Start Date"
+				License_End_Date as "License End Date"
+				License_Fee as "License Fee"
+				Royalty_Percentage as "Royalty Percentage"
+				License_Status as "License Status"
+				License_Notes as "License Notes"
+			)
+		}
+		list Open_Violations
+		{
+			displayName = "Open Violations"
+			show all rows from Rights_Violations  [Violation_Status == "Open"]  
+			(
+				Violation_ID as "Violation ID"
+				Distribution_Requests as "Distribution Requests"
+				Content
+				Territory
+				Violation_Date as "Violation Date"
+				Reason
+				Severity
+				Violation_Status as "Violation Status"
+				AI_Explanation as "AI Explanation"
+				Notes
+			)
+		}
+	}
+	pages
+	{
+		page MediaVault_Dashboard
+		{
+			displayname = "MediaVault Dashboard"
+			Content="<zml    \t\t\n\t\t\n\t\t\n\t\t\n\t\t\n>\n\t<layout>\n\t<row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<panel elementName='Panel'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '20px'\n\tbgColor = '#FFFFFF'\n\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<text \n\n\tcolor = '#333333'\n\tsize = '16px'\n\ttype = 'Text'\n\n\n\n\n\n\n\n\t  value = 'MEDIAVAULT DASHBOARD'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<report \n\telementName='Report'\n\n\t\tappLinkName = 'thisapp'\n\t\tlinkName = 'Active_Licenses'\n\t\n\t\tiszreport = 'false'\n\theightType = 'auto'\n\theightValue = '700'\n/>\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<report \n\telementName='Report 1'\n\n\t\tappLinkName = 'thisapp'\n\t\tlinkName = 'Rights_Violations_Report'\n\t\n\t\tiszreport = 'false'\n\theightType = 'auto'\n\theightValue = '700'\n/>\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<chart \n\telementName='Revenue by Platform'\n\n\ttype = 'Bar'\n\txtitle = 'Platform'\n\tytitle = 'Revenue Amount'\n\tbgColor = '#FFFFFF'\n\ttheme = 'theme1'\n\tlegendPos = 'center.top'\n\theightType = 'auto'\n\theightValue = '300px'\n\tappLinkName = 'thisapp'\n\tformLinkName = 'Revenue'\n\txfield = 'Platform'\n\tyfields = 'sum:Revenue_Amount'\n/>\n\n</column>\n</row><row>\n\t<column\n   \t\t width='50%'\n   \t>\n\t<report \n\telementName='Report 2'\n\n\t\tappLinkName = 'thisapp'\n\t\tlinkName = 'All_Royalty_Payments'\n\t\n\t\tiszreport = 'false'\n\theightType = 'auto'\n\theightValue = '700'\n/>\n</column><column\n   \t\t width='50%'\n   \t>\n\t<report \n\telementName='Report 3'\n\n\t\tappLinkName = 'thisapp'\n\t\tlinkName = 'All_Distribution_Requests'\n\t\n\t\tiszreport = 'false'\n\theightType = 'auto'\n\theightValue = '700'\n/>\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<dsp id='html_snippet' elementName='HTML Snippet'\n bgColor=\"#FFFFFF\" \n>\n\t<![CDATA[htmlpage html_snippet()\ncontent\n&lt;%{\n\topenViol = Rights_Violations[Violation_Status == &quot;Open&quot;].count();\n\tcritical = Rights_Violations[Severity == &quot;Critical&quot; &amp;&amp; Violation_Status == &quot;Open&quot;].count();\n\tpendingClaims = Content_Ownership[Verification_Status == &quot;Pending&quot;].count();\n\tactiveLic = Licenses[License_Status == &quot;Active&quot; &amp;&amp; License_End_Date &gt;= zoho.currentdate].count();\n\texpiring = Licenses[License_Status == &quot;Active&quot; &amp;&amp; License_End_Date &gt;= zoho.currentdate &amp;&amp; License_End_Date &lt;= zoho.currentdate.addDay(30)].count();\n\tpendingReq = Distribution_Requests[Request_Status == &quot;Pending&quot;].count();\n\t%&gt;\n&lt;style&gt;\n.mv-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;padding:8px}\n.mv-card{background:#fff;border:1px solid #e6e8ee;border-left:5px solid #4f46e5;border-radius:12px;padding:16px 18px;font-family:sans-serif}\n.mv-card b{display:block;font-size:32px;color:#1b1f3b}\n.mv-card span{font-size:13px;color:#6b7280}\n.mv-red{border-left-color:#dc2626}.mv-amber{border-left-color:#f59e0b}.mv-green{border-left-color:#16a34a}\n&lt;/style&gt;\n&lt;div class=&quot;mv-grid&quot;&gt;\n&lt;div class=&quot;mv-card mv-red&quot;&gt;&lt;b&gt;&lt;%=openViol%&gt;&lt;/b&gt;&lt;span&gt;Open violations&lt;/span&gt;&lt;/div&gt;\n&lt;div class=&quot;mv-card mv-red&quot;&gt;&lt;b&gt;&lt;%=critical%&gt;&lt;/b&gt;&lt;span&gt;Critical (open)&lt;/span&gt;&lt;/div&gt;\n&lt;div class=&quot;mv-card mv-amber&quot;&gt;&lt;b&gt;&lt;%=pendingClaims%&gt;&lt;/b&gt;&lt;span&gt;Ownership claims pending&lt;/span&gt;&lt;/div&gt;\n&lt;div class=&quot;mv-card mv-green&quot;&gt;&lt;b&gt;&lt;%=activeLic%&gt;&lt;/b&gt;&lt;span&gt;Active licenses&lt;/span&gt;&lt;/div&gt;\n&lt;div class=&quot;mv-card mv-amber&quot;&gt;&lt;b&gt;&lt;%=expiring%&gt;&lt;/b&gt;&lt;span&gt;Expiring within 30 days&lt;/span&gt;&lt;/div&gt;\n&lt;div class=&quot;mv-card&quot;&gt;&lt;b&gt;&lt;%=pendingReq%&gt;&lt;/b&gt;&lt;span&gt;Requests pending&lt;/span&gt;&lt;/div&gt;\n&lt;/div&gt;\n&lt;%\n\n}%&gt;]]>\n</dsp>\n</column>\n</row>\n</layout>\n</zml>"
+		}
+	}
+
+
+		 functions
+		 {
+			 Deluge
+			 {
+				 void explainViolation(int violationRecID)
+                 {
+                 	v = Rights_Violations[ID == violationRecID];
+                 	if(v.count() == 0)
+                 	{
+                 		return;
+                 	}
+                 	req = Distribution_Requests[ID == v.Distribution_Requests.toLong()];
+                 	cont = Content[ID == v.Content.toLong()];
+                 	// Facts only. No emails, phone numbers or personal names.
+                 	facts = "Content: " + cont.Title + ". Territory requested: " + v.Territory;
+                 	if(req.count() > 0)
+                 	{
+                 		facts = facts + ". Requested period: " + req.Requested_Start_Date.toString("dd-MMM-yyyy") + " to " + req.Requested_End_Date.toString("dd-MMM-yyyy");
+                 	}
+                 	facts = facts + ". Severity: " + v.Severity + ". System reason: " + v.Reason;
+                 	prompt = "You write short notices for a media licensing system. Using ONLY the facts below, write 2 to 3 plain sentences. Sentence 1: say what was requested and why it was refused, using only the license ID and dates given. Sentence 2: the next step. The only next steps you may suggest are: (a) ask the rights owner to extend or renew the license, (b) request a license for the missing territory, or (c) resubmit with dates inside the licensed period. Do not mention authorities, deadlines, urgency, penalties, legal advice or any person or organisation not named in the facts. Do not invent license numbers or dates, and do not change the severity. Facts: " + facts;
+                 	try 
+                 	{
+                 		response = zia
+                 		[
+                 			message:prompt
+                 		];
+                 		v.AI_Explanation="AI-generated summary. The stored Reason and Severity are the official result. " + response.toString();
+                 	}	catch (e)
+                 	{
+                 		v.AI_Explanation="AI explanation unavailable: " + e;
+                 	}
+                 }
+				 map Fetch_License_Records()
+                 {
+                 	todayDate = zoho.currentdate;
+                 	result = List();
+                 	for each  lic in Licenses[ID != 0]
+                 	{
+                 		state = "Not Active (" + lic.License_Status + ")";
+                 		if(lic.License_Status == "Active")
+                 		{
+                 			if(lic.License_End_Date != null && lic.License_End_Date < todayDate)
+                 			{
+                 				state = "Expired";
+                 			}
+                 			else if(lic.License_Start_Date != null && lic.License_Start_Date > todayDate)
+                 			{
+                 				state = "Not Started";
+                 			}
+                 			else if(lic.License_End_Date != null && lic.License_End_Date <= todayDate.addDay(30))
+                 			{
+                 				state = "Expiring Soon";
+                 			}
+                 			else
+                 			{
+                 				state = "Valid";
+                 			}
+                 		}
+                 		endText = "";
+                 		if(lic.License_End_Date != null)
+                 		{
+                 			endText = lic.License_End_Date.toString("dd-MMM-yyyy");
+                 		}
+                 		item = Map();
+                 		item.put("License_ID",lic.License_ID);
+                 		item.put("Licensee_Name",lic.Licensee_Name);
+                 		item.put("Territory",lic.Territory);
+                 		item.put("License_Status",lic.License_Status);
+                 		item.put("License_End_Date",endText);
+                 		item.put("Coverage_State",state);
+                 		result.add(item);
+                 	}
+                 	response = Map();
+                 	response.put("status","success");
+                 	response.put("count",result.size());
+                 	response.put("licenses",result);
+                 	return response;
+                 }
+			 }
+		 }
+
+
+		workflow
+		{
+		form
+		{
+			Check_Distribution_Rights as "Check Distribution Rights"
+			{
+				type =  form
+				form = Distribution_Requests
+
+				record event = on add
+
+				on success
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											// ===== Configuration =====
+										expiryWarningDays = 30;
+										createAdvisoryRecords = false;
+										// true = also log Medium/Low as violation records
+										// ===== Working variables =====
+										today = zoho.currentdate;
+										startTxt = input.Requested_Start_Date.toString("dd-MMM-yyyy");
+										endTxt = input.Requested_End_Date.toString("dd-MMM-yyyy");
+										matchCount = 0;
+										solidCover = false;
+										nearCover = false;
+										nearLicenseID = "";
+										nearEndText = "";
+										issueText = "";
+										adminIssue = "";
+										// ===== Evaluate every license for this content =====
+										for each  lic in Licenses[Content == input.Content]
+										{
+											if(lic.Territory == input.Requested_Territory || lic.Territory == "Worldwide")
+											{
+												matchCount = matchCount + 1;
+												statusOK = lic.License_Status == "Active";
+												datesOK = false;
+												if(lic.License_Start_Date != null && lic.License_End_Date != null)
+												{
+													if(lic.License_Start_Date <= input.Requested_Start_Date && lic.License_End_Date >= input.Requested_End_Date)
+													{
+														datesOK = true;
+													}
+												}
+												if(statusOK && datesOK)
+												{
+													if(lic.License_End_Date <= today.addDay(expiryWarningDays))
+													{
+														nearCover = true;
+														nearLicenseID = lic.License_ID;
+														nearEndText = lic.License_End_Date.toString("dd-MMM-yyyy");
+													}
+													else
+													{
+														solidCover = true;
+													}
+													if(lic.Royalty_Percentage == null)
+													{
+														adminIssue = adminIssue + "License " + lic.License_ID + " has no royalty percentage recorded. ";
+													}
+												}
+												else
+												{
+													problem = "License " + lic.License_ID + ": ";
+													if(!statusOK)
+													{
+														problem = problem + "status is " + lic.License_Status + ". ";
+													}
+													if(!datesOK)
+													{
+														if(lic.License_Start_Date == null || lic.License_End_Date == null)
+														{
+															problem = problem + "license dates are missing. ";
+														}
+														else
+														{
+															problem = problem + "license period " + lic.License_Start_Date.toString("dd-MMM-yyyy") + " to " + lic.License_End_Date.toString("dd-MMM-yyyy") + " does not cover the requested period " + startTxt + " to " + endTxt + ". ";
+														}
+													}
+													issueText = issueText + problem;
+												}
+											}
+										}
+										// ===== Classify =====
+										severity = "";
+										newStatus = "";
+										reason = "";
+										notes = "";
+										if(solidCover || nearCover)
+										{
+											newStatus = "Approved";
+											if(input.Expected_Revenue == null)
+											{
+												adminIssue = adminIssue + "Expected revenue is not entered. ";
+											}
+											else if(input.Expected_Revenue <= 0)
+											{
+												adminIssue = adminIssue + "Expected revenue is zero or negative. ";
+											}
+											if(!solidCover && nearCover)
+											{
+												severity = "Medium";
+												reason = "Covered by license " + nearLicenseID + ", which expires on " + nearEndText + " (within " + expiryWarningDays.toString() + " days).";
+												notes = "MEDIUM: Rights coverage is valid but the license is nearing expiry. Plan a renewal.";
+											}
+											else if(adminIssue != "")
+											{
+												severity = "Low";
+												reason = "Rights coverage confirmed, but: " + adminIssue;
+												notes = "LOW: Administrative follow-up only. No rights-coverage failure.";
+											}
+										}
+										else if(matchCount == 0)
+										{
+											newStatus = "Rights Violation";
+											severity = "Critical";
+											reason = "No license exists for this content in the requested territory (" + input.Requested_Territory + ") for " + startTxt + " to " + endTxt + ".";
+											notes = "CRITICAL: No license covers this territory. Escalate to the rights/legal team before any release.";
+										}
+										else
+										{
+											newStatus = "Rights Violation";
+											severity = "High";
+											reason = "A license exists for the requested territory but it cannot support this request. " + issueText;
+											notes = "HIGH: Review the license status and dates. Reactivate, renew or amend the license, or reduce the requested period.";
+										}
+										// ===== Update the request =====
+										req = Distribution_Requests[ID == input.ID];
+										req.Request_Status=newStatus;
+										if(newStatus == "Rights Violation")
+										{
+											req.Remarks="Rights Violation (" + severity + "): " + reason;
+										}
+										else if(severity != "")
+										{
+											req.Remarks="Approved with " + severity + " advisory: " + reason;
+										}
+										else
+										{
+											req.Remarks="Approved: an active license covers the requested territory and distribution period.";
+										}
+										// ===== Create the violation record (once per request) =====
+										createRecord = false;
+										if(newStatus == "Rights Violation")
+										{
+											createRecord = true;
+										}
+										else if(severity != "" && createAdvisoryRecords)
+										{
+											createRecord = true;
+										}
+										if(createRecord)
+										{
+											existing = Rights_Violations[Distribution_Requests == input.ID];
+											if(existing.count() == 0)
+											{
+												insert into Rights_Violations
+												[
+													Violation_ID="VIO-" + input.Request_ID
+													Distribution_Requests=input.ID
+													Content=input.Content
+													Territory=input.Requested_Territory
+													Violation_Date=zoho.currentdate
+													Reason=reason
+													Severity=severity
+													Violation_Status="Open"
+													Notes=notes
+													Added_User=zoho.loginuser
+												]
+											}
+										}
+										for each  v in Rights_Violations[Distribution_Requests == input.ID]
+										{
+											thisapp.explainViolation(v.ID);
+										}
+						)
+					}
+				}
+
+			}
+			License_Expiry_Alert as "License Expiry Alert"
+			{
+				type =  form
+				form = Licenses
+
+				record event = on add or edit
+
+				on success
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											// On success, changes to input are not saved, so update the stored record
+										lic = Licenses[ID == input.ID];
+										if(lic.License_End_Date != null)
+										{
+											if(lic.License_End_Date < zoho.currentdate)
+											{
+												lic.License_Status="Expired";
+											}
+											else if(lic.License_End_Date <= zoho.currentdate.addDay(30))
+											{
+												warn = "Warning: This license expires within 30 days.";
+												if(lic.License_Notes == null || lic.License_Notes == "")
+												{
+													lic.License_Notes=warn;
+												}
+												else if(!lic.License_Notes.contains(warn))
+												{
+													lic.License_Notes=lic.License_Notes + " | " + warn;
+												}
+											}
+										}
+						)
+					}
+				}
+
+			}
+			hide_Severity as "hide Severity"
+			{
+				type =  form
+				form = Rights_Violations
+
+				record event = on add
+
+				on load
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											hide Severity;
+						)
+					}
+				}
+
+			}
+			Hide_Request_Status as "Hide Request Status"
+			{
+				type =  form
+				form = Distribution_Requests
+
+				record event = on add
+
+				on load
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											hide Request_Status;
+						)
+					}
+				}
+
+			}
+			Protect_Request_Status as "Protect Request Status"
+			{
+				type =  form
+				form = Distribution_Requests
+
+				record event = on edit
+
+				on validate
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											saved = Distribution_Requests[ID == input.ID];
+										input.Request_Status = saved.Request_Status;
+						)
+					}
+				}
+
+			}
+			Protect_Severity as "Protect Severity"
+			{
+				type =  form
+				form = Rights_Violations
+
+				record event = on edit
+
+				on validate
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											saved = Rights_Violations[ID == input.ID];
+										input.Severity = saved.Severity;
+						)
+					}
+				}
+
+			}
+			Calculate_Royalty_Validat as "Calculate Royalty Validate"
+			{
+				type =  form
+				form = Royalty_Payments
+
+				record event = on add or edit
+
+				on validate
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											// Paid payments are locked: restore the saved values
+										paidLocked = false;
+										if(input.ID != null)
+										{
+											saved = Royalty_Payments[ID == input.ID];
+											if(saved.Payment_Status == "Paid")
+											{
+												paidLocked = true;
+												input.Revenue_Amount = saved.Revenue_Amount;
+												input.Royalty_Percentage = saved.Royalty_Percentage;
+												input.Royalty_Amount = saved.Royalty_Amount;
+												input.Payment_Status = "Paid";
+											}
+										}
+										if(!paidLocked)
+										{
+											errorMsg = "";
+											if(input.Revenue_Amount == null || input.Revenue_Amount <= 0)
+											{
+												errorMsg = "Revenue Amount must be greater than 0.";
+											}
+											else if(input.Royalty_Percentage == null || input.Royalty_Percentage < 0 || input.Royalty_Percentage > 100)
+											{
+												errorMsg = "Royalty Percentage must be between 0 and 100.";
+											}
+											// Prevent double-counting (skipped for Cancelled payments)
+											if(errorMsg == "" && input.Payment_Status != "Cancelled")
+											{
+												if(input.Rights_Holders != null)
+												{
+													dupCount = Royalty_Payments[Revenue == input.Revenue && Rights_Holders == input.Rights_Holders && Payment_Status != "Cancelled"].count();
+													allowed = 0;
+													if(input.ID != null)
+													{
+														allowed = 1;
+													}
+													if(dupCount > allowed)
+													{
+														errorMsg = "This rights holder already has a payment for this revenue record.";
+													}
+												}
+												if(errorMsg == "")
+												{
+													totalPct = input.Royalty_Percentage;
+													for each  p in Royalty_Payments[Revenue == input.Revenue && Payment_Status != "Cancelled"]
+													{
+														if(input.ID == null || p.ID != input.ID)
+														{
+															totalPct = totalPct + p.Royalty_Percentage;
+														}
+													}
+													if(totalPct > 100)
+													{
+														errorMsg = "Royalty percentages for this revenue add up to more than 100%.";
+													}
+												}
+											}
+											if(errorMsg != "")
+											{
+												alert errorMsg;
+												cancel submit;
+											}
+											else
+											{
+												input.Royalty_Amount = (input.Revenue_Amount * input.Royalty_Percentage / 100).round(2);
+												if(input.Payment_Status == null || input.Payment_Status == "" || input.Payment_Status == "Pending")
+												{
+													input.Payment_Status = "Calculated";
+												}
+												if(input.Payment_Status == "Paid" && input.Payment_Date == null)
+												{
+													input.Payment_Date = zoho.currentdate;
+												}
+											}
+										}
+						)
+					}
+				}
+
+			}
+			Date_validation as "Date validation"
+			{
+				type =  form
+				form = Licenses
+
+				record event = on add or edit
+
+				on validate
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											if(input.License_End_Date != null && input.License_Start_Date != null && input.License_End_Date < input.License_Start_Date)
+										{
+											alert "License end date must be on or after the start date.";
+											cancel submit;
+										}
+						)
+					}
+				}
+
+			}
+			Date_validation_2 as "Date validation 2"
+			{
+				type =  form
+				form = Distribution_Requests
+
+				record event = on add or edit
+
+				on validate
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											if(input.Requested_End_Date != null && input.Requested_Start_Date != null && input.Requested_End_Date < input.Requested_Start_Date)
+										{
+											alert "Requested end date must be on or after the start date.";
+											cancel submit;
+										}
+						)
+					}
+				}
+
+			}
+			hide_Verified_By as "hide Verified_By"
+			{
+				type =  form
+				form = Content_Ownership
+
+				record event = on add or edit
+
+				on load
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											hide Verified_By;
+										hide Verification_Date;
+										if(zoho.loginuser != zoho.adminuser)
+										{
+											disable Verification_Status;
+										}
+						)
+					}
+				}
+
+			}
+			W3b_Workflow as "3b. Workflow"
+			{
+				type =  form
+				form = Content_Ownership
+
+				record event = on add or edit
+
+				on validate
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											isAdmin = zoho.loginuser == zoho.adminuser;
+										errorMsg = "";
+										savedStatus = "Pending";
+										if(input.ID != null)
+										{
+											saved = Content_Ownership[ID == input.ID];
+											savedStatus = saved.Verification_Status;
+										}
+										if(input.Ownership_Percentage == null || input.Ownership_Percentage <= 0 || input.Ownership_Percentage > 100)
+										{
+											errorMsg = "Ownership percentage must be between 0.01 and 100.";
+										}
+										// Only the administrator can change the status
+										if(errorMsg == "" && !isAdmin)
+										{
+											if(input.ID == null)
+											{
+												input.Verification_Status = "Pending";
+											}
+											else if(savedStatus == "Verified")
+											{
+												errorMsg = "Verified ownership is locked. Ask an administrator to change it.";
+											}
+											else
+											{
+												input.Verification_Status = savedStatus;
+											}
+										}
+										// One claim per holder per content
+										// One claim per holder per content
+										if(errorMsg == "")
+										{
+											for each  p in Content_Ownership[Content == input.Content && Rights_Holders == input.Rights_Holders && Verification_Status != "Rejected"]
+											{
+												if(input.ID == null || p.ID != input.ID)
+												{
+													errorMsg = "This rights holder already has an ownership claim for this content.";
+												}
+											}
+										}
+										// Verified shares for one content can never exceed 100%
+										if(errorMsg == "" && input.Verification_Status == "Verified")
+										{
+											total = input.Ownership_Percentage;
+											for each  p in Content_Ownership[Content == input.Content && Verification_Status == "Verified"]
+											{
+												if(input.ID == null || p.ID != input.ID)
+												{
+													total = total + p.Ownership_Percentage;
+												}
+											}
+											if(total > 100.0001)
+											{
+												errorMsg = "Verified ownership for this content would total " + total + "%. It cannot exceed 100%.";
+											}
+										}
+										if(errorMsg != "")
+										{
+											alert errorMsg;
+											cancel submit;
+										}
+										else
+										{
+											if(input.Verification_Status == "Verified" && savedStatus != "Verified")
+											{
+												input.Verified_By = zoho.loginuser;
+												input.Verification_Date = zoho.currentdate;
+											}
+											else if(input.Verification_Status != "Verified")
+											{
+												input.Verified_By = "";
+												input.Verification_Date = null;
+											}
+										}
+						)
+					}
+				}
+
+			}
+			hide_Rights_Ownership as "hide Rights_Ownership"
+			{
+				type =  form
+				form = Content
+
+				record event = on add or edit
+
+				on load
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											hide Rights_Ownership;
+										disable Ownership_Status;
+						)
+					}
+				}
+
+			}
+			W3e_Workflow as "3e. Workflow"
+			{
+				type =  form
+				form = Content
+
+				record event = on add or edit
+
+				on validate
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											saved = Content[ID == input.ID];
+										input.Ownership_Status = saved.Ownership_Status;
+						)
+					}
+				}
+
+			}
+			W3f_Workflow as "3f. Workflow"
+			{
+				type =  form
+				form = Licenses
+
+				record event = on add or edit
+
+				on validate
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											if(input.License_Status == "Active")
+										{
+											c = Content[ID == input.Content];
+											if(c.Ownership_Status != "Verified")
+											{
+												alert "Cannot activate this license: ownership of this content is not verified yet.";
+												cancel submit;
+											}
+										}
+						)
+					}
+				}
+
+			}
+			W3c as "3c"
+			{
+				type =  form
+				form = Content_Ownership
+
+				record event = on add or edit
+
+				on success
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											verifiedTotal = 0.0;
+										pendingCount = 0;
+										rowCount = 0;
+										for each  p in Content_Ownership[Content == input.Content]
+										{
+											rowCount = rowCount + 1;
+											if(p.Verification_Status == "Verified")
+											{
+												verifiedTotal = verifiedTotal + p.Ownership_Percentage;
+											}
+											else if(p.Verification_Status == "Pending")
+											{
+												pendingCount = pendingCount + 1;
+											}
+										}
+										newStatus = "Pending";
+										if(verifiedTotal >= 99.995 && verifiedTotal <= 100.005)
+										{
+											newStatus = "Verified";
+										}
+										else if(verifiedTotal > 0)
+										{
+											newStatus = "Partially Verified";
+										}
+										else if(rowCount > 0 && pendingCount == 0)
+										{
+											newStatus = "Rejected";
+										}
+										c = Content[ID == input.Content];
+										c.Ownership_Status=newStatus;
+						)
+					}
+				}
+
+			}
+			explainViolation as "explainViolation"
+			{
+				type =  form
+				form = Rights_Violations
+
+				record event = on add
+
+				on success
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											thisapp.explainViolation(input.ID);
+						)
+					}
+				}
+
+			}
+			crm as "crm"
+			{
+				type =  form
+				form = Licenses
+
+				record event = on add
+
+				on success
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											deal = Map();
+										deal.put("Deal_Name","License " + input.License_ID + " - " + input.Licensee_Name);
+										deal.put("Amount",input.License_Fee);
+										deal.put("Closing_Date",input.License_Start_Date.toString("yyyy-MM-dd"));
+										deal.put("Stage","Closed Won");
+										resp = zoho.crm.createRecord("Deals",deal,Map(),"zoho_crm_connection");
+						)
+					}
+				}
+
+			}
+		}
+
+
+
+
+
+
+	}
+	share_settings
+	{
+			"Read"
+			{
+				name = "Read"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have read permission for all components\n"
+			}
+			"Write"
+			{
+				name = "Write"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have write permission for all components\n"
+			}
+			"Content Owner"
+			{
+				name = "Content Owner"
+				type = Users_Permissions
+				permissions = {Chat:false, Predefined:false, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Registers content and views own records.\n"
+				ModulePermissions
+				{
+					Distribution_Requests
+					{
+						allFieldsVisible= true 
+					}
+					Rights_Violations
+					{
+						allFieldsVisible= true 
+					}
+					Rights_Holders
+					{
+						enabled= Create,Tab 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							My_Rights_Holders={"View"}
+						}
+					}
+					Content
+					{
+						enabled= Create,Tab 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							My_content={"View"}
+						}
+					}
+					Content_Ownership
+					{
+						enabled= Create,Tab 
+						allFieldsVisible= true 
+					}
+					Licenses
+					{
+						allFieldsVisible= true 
+					}
+					Royalty_Payments
+					{
+						allFieldsVisible= true 
+					}
+					Revenue
+					{
+						allFieldsVisible= true 
+					}
+					Royalty_Rules
+					{
+						allFieldsVisible= true 
+					}
+				}
+			}
+			"Finance Manager"
+			{
+				name = "Finance Manager"
+				type = Users_Permissions
+				permissions = {Chat:false, Predefined:false, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Finance Manager Profile\n"
+				ModulePermissions
+				{
+					Distribution_Requests
+					{
+						allFieldsVisible= true 
+					}
+					Rights_Violations
+					{
+						allFieldsVisible= true 
+					}
+					Rights_Holders
+					{
+						allFieldsVisible= true 
+					}
+					Content
+					{
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							All_Content={"View"}
+						}
+					}
+					Content_Ownership
+					{
+						allFieldsVisible= true 
+					}
+					Licenses
+					{
+						allFieldsVisible= true 
+					}
+					Royalty_Payments
+					{
+						enabled= Create,Tab 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							Royalty_Payments_Report={"View","Edit"}
+						}
+					}
+					Revenue
+					{
+						enabled= Create,Tab 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							Revenue_Report={"View","Edit"}
+						}
+					}
+					Royalty_Rules
+					{
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							All_Royalty_Rules={"View"}
+						}
+					}
+				}
+			}
+			"Administrator"
+			{
+				name = "Administrator"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have all the permissions.\n"
+			}
+			"Distributor"
+			{
+				name = "Distributor"
+				type = Users_Permissions
+				permissions = {Chat:false, Predefined:false, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Distributor Profile\n"
+				ModulePermissions
+				{
+					Distribution_Requests
+					{
+						enabled= Create,Tab 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							My_Requests={"View"}
+						}
+					}
+					Rights_Violations
+					{
+						allFieldsVisible= true 
+					}
+					Rights_Holders
+					{
+						allFieldsVisible= true 
+					}
+					Content
+					{
+						allFieldsVisible= true 
+					}
+					Content_Ownership
+					{
+						allFieldsVisible= true 
+					}
+					Licenses
+					{
+						allFieldsVisible= true 
+					}
+					Royalty_Payments
+					{
+						allFieldsVisible= true 
+					}
+					Revenue
+					{
+						allFieldsVisible= true 
+					}
+					Royalty_Rules
+					{
+						allFieldsVisible= true 
+					}
+				}
+			}
+			"Developer"
+			{
+				name = "Developer"
+				type = Developer
+				permissions = {Chat:false, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Developer Profile\n"
+			}
+			"Customer"
+			{
+				name = "Customer"
+				type = Customer_Portal
+				permissions = {Chat:false, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This is the default profile having only add and view permission.\n"
+			}
+			roles
+			{
+				"CEO"
+				{
+					description = "User belonging to this role can access data of all other users."
+					"Content Owner"
+					{
+						description = ""
+					}
+					"Distributor"
+					{
+						description = ""
+					}
+					"Finance Manager"
+					{
+						description = ""
+					}
+				}
+			}
+	}
+
+	customize
+	{
+		icon
+		{
+			text = "MED"
+			background color = "theme"
+			foreground color = "#ffffff"
+		}
+	}
+
+	connections
+	{
+		zoho_crm_connection
+		(
+			displayname = "Zoho CRM Connection"
+			connector = zohocrm1
+			permissions = {"search_purchase_orders_record","sync_invoices_record","sync_deals_record","sync_contacts_record","sync_cases_record","sync_campaigns_record","sync_accounts_record","search_vendors_record","search_solutions_record","search_sales_orders_record","search_quotes_record","sync_leads_record","search_products_record","search_leads_record","search_invoices_record","search_deals_record","search_contacts_record","search_cases_record","search_campaigns_record","search_accounts_record","list_all","update_contacts_record","update_vendors_record","update_solutions_record","update_sales_orders_record","update_quotes_record","update_purchase_orders_record","update_products_record","update_leads_record","update_invoices_record","update_deals_record","get_modules","update_cases_record","update_campaigns_record","update_accounts_record","sync_vendors_record","sync_solutions_record","sync_sales_orders_record","sync_quotes_record","sync_purchase_orders_record","sync_products_record","create_sales_orders_record","fetch_all_leads_records","fetch_all_invoices_records","fetch_all_deals_records","fetch_all_contacts_records","fetch_all_cases_records","fetch_all_campaigns_records","fetch_all_accounts_records","fetch_accounts_record","create_vendors_record","create_solutions_record","fetch_all_products_records","create_quotes_record","create_purchase_orders_record","create_products_record","create_leads_record","create_invoices_record","create_deals_record","create_contacts_record","create_cases_record","create_campaigns_record","fetch_invoices_record","fetch_vendors_record","fetch_users","fetch_solutions_record","fetch_signals","fetch_sales_orders_record","fetch_quotes_record","fetch_purchase_orders_record","fetch_products_record","fetch_leads_record","create_accounts_record","fetch_deals_record","fetch_contacts_record","fetch_cases_record","fetch_campaigns_record","fetch_all_vendors_records","fetch_all_solutions_records","fetch_all_sales_orders_records","fetch_all_quotes_records","fetch_all_purchase_orders_records"}
+		)
+	}
+	web
+	{
+		forms
+		{
+			form Content
+			{
+				label placement = left
+			}
+			form Content_Ownership
+			{
+				label placement = left
+			}
+			form Distribution_Requests
+			{
+				label placement = left
+			}
+			form Licenses
+			{
+				label placement = left
+			}
+			form Revenue
+			{
+				label placement = left
+			}
+			form Rights_Holders
+			{
+				label placement = left
+			}
+			form Rights_Violations
+			{
+				label placement = left
+			}
+			form Royalty_Payments
+			{
+				label placement = left
+			}
+			form Royalty_Rules
+			{
+				label placement = left
+			}
+		}
+		reports
+		{
+			report All_Content
+			{
+				quickview
+				(
+					layout
+					(
+						displaylayout = "classic"
+						datablock1
+						(
+							fields
+							(
+								Content_ID as "Content ID"
+								Title
+								Content_Type as "Content Type"
+								Content_Type1 as "Language"
+								Release_Year as "Release Year"
+								Rights_Status as "Rights Status"
+								Description
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Content_ID as "Content ID"
+								Title
+								Content_Type as "Content Type"
+								Content_Type1 as "Language"
+								Release_Year as "Release Year"
+								Rights_Status as "Rights Status"
+								Description
+								Rights_Ownership.Rights_Holders as "Rights Ownership"
+								Ownership_Status as "Ownership Status"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report All_Rights_Holders
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Rights_Holder_ID as "Rights Holder ID"
+								Name
+								Holder_Type as "Holder Type"
+								Email
+								Phone_Number as "Phone"
+								Address
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Rights_Holder_ID as "Rights Holder ID"
+								Name
+								Holder_Type as "Holder Type"
+								Email
+								Phone_Number as "Phone"
+								Address
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report All_Licenses
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								License_ID as "License ID"
+								Content
+								Licensee_Name as "Licensee Name"
+								Territory
+								License_Start_Date as "License Start Date"
+								License_End_Date as "License End Date"
+								License_Fee as "License Fee"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								License_ID as "License ID"
+								Content
+								Licensee_Name as "Licensee Name"
+								Territory
+								License_Start_Date as "License Start Date"
+								License_End_Date as "License End Date"
+								License_Fee as "License Fee"
+								Royalty_Percentage as "Royalty Percentage"
+								License_Status as "License Status"
+								License_Notes as "License Notes"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report All_Distribution_Requests
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Request_ID as "Request ID"
+								Content
+								Platform
+								Requested_Territory as "Requested Territory"
+								Requested_Start_Date as "Requested Start Date"
+								Requested_End_Date as "Requested End Date"
+								Expected_Revenue as "Expected Revenue"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Request_ID as "Request ID"
+								Content
+								Platform
+								Requested_Territory as "Requested Territory"
+								Requested_Start_Date as "Requested Start Date"
+								Requested_End_Date as "Requested End Date"
+								Expected_Revenue as "Expected Revenue"
+								Request_Status as "Request Status"
+								Remarks
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report All_Revenues
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Revenue_ID as "Revenue ID"
+								Content
+								Licenses
+								Platform
+								Territory
+								Revenue_Date as "Revenue Date"
+								Revenue_Amount as "Revenue Amount"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Revenue_ID as "Revenue ID"
+								Content
+								Licenses
+								Platform
+								Territory
+								Revenue_Date as "Revenue Date"
+								Revenue_Amount as "Revenue Amount"
+								Revenue_Source as "Revenue Source"
+								Notes
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report All_Royalty_Rules
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Rule_ID as "Rule ID"
+								Licenses
+								Rights_Holders as "Rights Holders"
+								Royalty_Percentage as "Royalty Percentage"
+								Effective_From as "Effective From"
+								Effective_To as "Effective To"
+								Rule_Status as "Rule Status"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Rule_ID as "Rule ID"
+								Licenses
+								Rights_Holders as "Rights Holders"
+								Royalty_Percentage as "Royalty Percentage"
+								Effective_From as "Effective From"
+								Effective_To as "Effective To"
+								Rule_Status as "Rule Status"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report All_Royalty_Payments
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Payment_ID as "Payment ID"
+								Revenue
+								Rights_Holders as "Rights Holders"
+								Royalty_Rules as "Royalty Rules"
+								Revenue_Amount as "Revenue Amount"
+								Royalty_Percentage as "Royalty Percentage"
+								Royalty_Amount as "Royalty Amount"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Payment_ID as "Payment ID"
+								Revenue
+								Rights_Holders as "Rights Holders"
+								Royalty_Rules as "Royalty Rules"
+								Revenue_Amount as "Revenue Amount"
+								Royalty_Percentage as "Royalty Percentage"
+								Royalty_Amount as "Royalty Amount"
+								Payment_Date as "Payment Date"
+								Payment_Status as "Payment Status"
+								Notes
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report All_Rights_Violations
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Violation_ID as "Violation ID"
+								Distribution_Requests as "Distribution Requests"
+								Content
+								Territory
+								Violation_Date as "Violation Date"
+								Reason
+								Severity
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Violation_ID as "Violation ID"
+								Distribution_Requests as "Distribution Requests"
+								Content
+								Territory
+								Violation_Date as "Violation Date"
+								Reason
+								Severity
+								Violation_Status as "Violation Status"
+								Notes
+								AI_Explanation as "AI Explanation"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Active_Licenses
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								License_ID as "License ID"
+								Content
+								Licensee_Name as "Licensee Name"
+								Territory
+								License_Start_Date as "License Start Date"
+								License_End_Date as "License End Date"
+								License_Fee as "License Fee"
+								License_Status as "License Status"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								License_ID as "License ID"
+								Content
+								Licensee_Name as "Licensee Name"
+								Territory
+								License_Start_Date as "License Start Date"
+								License_End_Date as "License End Date"
+								License_Fee as "License Fee"
+								Royalty_Percentage as "Royalty Percentage"
+								License_Status as "License Status"
+								License_Notes as "License Notes"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Revenue_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Revenue_ID as "Revenue ID"
+								Content
+								Licenses
+								Platform
+								Territory
+								Revenue_Date as "Revenue Date"
+								Revenue_Amount as "Revenue Amount"
+								Revenue_Source as "Revenue Source"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Revenue_ID as "Revenue ID"
+								Content
+								Licenses
+								Platform
+								Territory
+								Revenue_Date as "Revenue Date"
+								Revenue_Amount as "Revenue Amount"
+								Revenue_Source as "Revenue Source"
+								Notes
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Royalty_Payments_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Payment_ID as "Payment ID"
+								Revenue
+								Rights_Holders as "Rights Holders"
+								Royalty_Rules as "Royalty Rules"
+								Revenue_Amount as "Revenue Amount"
+								Royalty_Percentage as "Royalty Percentage"
+								Royalty_Amount as "Royalty Amount"
+								Payment_Date as "Payment Date"
+								Payment_Status as "Payment Status"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Payment_ID as "Payment ID"
+								Revenue
+								Rights_Holders as "Rights Holders"
+								Royalty_Rules as "Royalty Rules"
+								Revenue_Amount as "Revenue Amount"
+								Royalty_Percentage as "Royalty Percentage"
+								Royalty_Amount as "Royalty Amount"
+								Payment_Date as "Payment Date"
+								Payment_Status as "Payment Status"
+								Notes
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Rights_Violations_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Violation_ID as "Violation ID"
+								Distribution_Requests as "Distribution Requests"
+								Content
+								Territory
+								Violation_Date as "Violation Date"
+								Reason
+								Severity
+								Violation_Status as "Violation Status"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Violation_ID as "Violation ID"
+								Distribution_Requests as "Distribution Requests"
+								Content
+								Territory
+								Violation_Date as "Violation Date"
+								Reason
+								Severity
+								Violation_Status as "Violation Status"
+								Notes
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Distribution_Requests_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Request_ID as "Request ID"
+								Content
+								Platform
+								Requested_Territory as "Requested Territory"
+								Requested_Start_Date as "Requested Start Date"
+								Requested_End_Date as "Requested End Date"
+								Expected_Revenue as "Expected Revenue"
+								Request_Status as "Request Status"
+								Remarks
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Request_ID as "Request ID"
+								Content
+								Platform
+								Requested_Territory as "Requested Territory"
+								Requested_Start_Date as "Requested Start Date"
+								Requested_End_Date as "Requested End Date"
+								Expected_Revenue as "Expected Revenue"
+								Request_Status as "Request Status"
+								Remarks
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Rights_Risk_Analytics
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Violation_ID as "Violation ID"
+								Distribution_Requests as "Distribution Requests"
+								Content
+								Territory
+								Reason
+								Severity
+								Violation_Status as "Violation Status"
+								Violation_Date as "Violation Date"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Violation_ID as "Violation ID"
+								Distribution_Requests as "Distribution Requests"
+								Content
+								Territory
+								Violation_Date as "Violation Date"
+								Reason
+								Severity
+								Violation_Status as "Violation Status"
+								Notes
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Content_ownership_report2
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Content
+								Rights_Holders as "Rights Holders"
+								Ownership_Percentage as "Ownership Percentage"
+								Verification_Status as "Verification Status"
+								Supporting_Document as "Supporting Document"
+								Verified_By as "Verified By"
+								Verification_Date as "Verification Date"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Content
+								Rights_Holders as "Rights Holders"
+								Ownership_Percentage as "Ownership Percentage"
+								Verification_Status as "Verification Status"
+								Supporting_Document as "Supporting Document"
+								Verified_By as "Verified By"
+								Verification_Date as "Verification Date"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report My_Requests
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Request_ID as "Request ID"
+								Content
+								Platform
+								Requested_Territory as "Requested Territory"
+								Requested_Start_Date as "Requested Start Date"
+								Requested_End_Date as "Requested End Date"
+								Expected_Revenue as "Expected Revenue"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Request_ID as "Request ID"
+								Content
+								Platform
+								Requested_Territory as "Requested Territory"
+								Requested_Start_Date as "Requested Start Date"
+								Requested_End_Date as "Requested End Date"
+								Expected_Revenue as "Expected Revenue"
+								Request_Status as "Request Status"
+								Remarks
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report My_content
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Content_ID as "Content ID"
+								Title
+								Content_Type as "Content Type"
+								Content_Type1 as "Language"
+								Release_Year as "Release Year"
+								Rights_Status as "Rights Status"
+								Description
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Content_ID as "Content ID"
+								Title
+								Content_Type as "Content Type"
+								Content_Type1 as "Language"
+								Release_Year as "Release Year"
+								Rights_Status as "Rights Status"
+								Description
+								Ownership_Status as "Ownership Status"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report My_Ownership_Claims
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Content
+								Rights_Holders as "Rights Holders"
+								Ownership_Percentage as "Ownership Percentage"
+								Verification_Status as "Verification Status"
+								Supporting_Document as "Supporting Document"
+								Verified_By as "Verified By"
+								Verification_Date as "Verification Date"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Content
+								Rights_Holders as "Rights Holders"
+								Ownership_Percentage as "Ownership Percentage"
+								Verification_Status as "Verification Status"
+								Supporting_Document as "Supporting Document"
+								Verified_By as "Verified By"
+								Verification_Date as "Verification Date"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report My_Rights_Holders
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Rights_Holder_ID as "Rights Holder ID"
+								Name
+								Holder_Type as "Holder Type"
+								Email
+								Phone_Number as "Phone"
+								Address
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Rights_Holder_ID as "Rights Holder ID"
+								Name
+								Holder_Type as "Holder Type"
+								Email
+								Phone_Number as "Phone"
+								Address
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Licenses_Expiring_Soon
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								License_ID as "License ID"
+								Content
+								Licensee_Name as "Licensee Name"
+								Territory
+								License_Start_Date as "License Start Date"
+								License_End_Date as "License End Date"
+								License_Fee as "License Fee"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								License_ID as "License ID"
+								Content
+								Licensee_Name as "Licensee Name"
+								Territory
+								License_Start_Date as "License Start Date"
+								License_End_Date as "License End Date"
+								License_Fee as "License Fee"
+								Royalty_Percentage as "Royalty Percentage"
+								License_Status as "License Status"
+								License_Notes as "License Notes"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Open_Violations
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Violation_ID as "Violation ID"
+								Distribution_Requests as "Distribution Requests"
+								Content
+								Territory
+								Violation_Date as "Violation Date"
+								Reason
+								Severity
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Violation_ID as "Violation ID"
+								Distribution_Requests as "Distribution Requests"
+								Content
+								Territory
+								Violation_Date as "Violation Date"
+								Reason
+								Severity
+								Violation_Status as "Violation Status"
+								AI_Explanation as "AI Explanation"
+								Notes
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+		}
+		menu
+		{
+			space Space
+			{
+				displayname = "Space"
+				icon = "objects-spaceship"
+
+				section Content
+				{
+					displayname = "Content"
+					icon = "design-window-paragraph"
+					form  Content
+					{
+						icon = "design-window-paragraph"
+					}
+					report All_Content
+					{
+						icon = "tech-desktop"
+					}
+					report My_content
+					{
+						icon = "design-window-paragraph"
+					}
+				}
+				section ZC_App_Preferences
+				{
+					displayname = "App Preferences"
+					icon = "design-app"
+					systemcomponent
+					{
+						type = localization
+						displayname = "Language Selection"
+						icon = "education-language"
+					}
+					systemcomponent
+					{
+						type = connection
+						displayname = "Integrations"
+						icon = "tech-2-connection"
+					}
+				}
+				section ZC_Approvals
+				{
+					displayname = "Approvals"
+					icon = "ui-2-hourglass"
+					systemcomponent
+					{
+						type = approval
+						approval status = pending
+						displayname = "Pending Tasks"
+						icon = "ui-2-hourglass"
+					}
+					systemcomponent
+					{
+						type = approval
+						approval status = completed
+						displayname = "Completed Tasks"
+						icon = "design-todo"
+					}
+				}
+				section SharedAnalytics_Section
+				{
+					type = shared_user_report_section
+					displayname = "Reports"
+					icon = "business-chart-bar-33"
+				}
+				section Rights_Holders
+				{
+					displayname = "Rights Holders"
+					icon = "business-scale"
+					form  Rights_Holders
+					{
+						icon = "business-scale"
+					}
+					report All_Rights_Holders
+					{
+						icon = "tech-desktop"
+					}
+					report My_Rights_Holders
+					{
+						icon = "business-scale"
+					}
+				}
+				section Licenses
+				{
+					displayname = "Licenses"
+					icon = "business-award-49"
+					form  Licenses
+					{
+						icon = "business-award-49"
+					}
+					report All_Licenses
+					{
+						icon = "tech-desktop"
+					}
+					report Active_Licenses
+					{
+						icon = "business-award-49"
+					}
+					report Licenses_Expiring_Soon
+					{
+						icon = "business-award-49"
+					}
+				}
+				section Distribution_Requests
+				{
+					displayname = "Distribution Requests"
+					icon = "travel-info"
+					form  Distribution_Requests
+					{
+						icon = "travel-info"
+					}
+					report All_Distribution_Requests
+					{
+						icon = "tech-desktop"
+					}
+					report Distribution_Requests_Report
+					{
+						icon = "travel-info"
+					}
+					report My_Requests
+					{
+						icon = "travel-info"
+					}
+				}
+				section Revenues
+				{
+					displayname = "Revenues"
+					icon = "sport-basketball-13"
+					form  Revenue
+					{
+						icon = "sport-basketball-13"
+					}
+					report All_Revenues
+					{
+						icon = "tech-desktop"
+					}
+					report Revenue_Report
+					{
+						icon = "sport-basketball-13"
+					}
+				}
+				section Royalty_Rules
+				{
+					displayname = "Royalty Rules"
+					icon = "business-law"
+					form  Royalty_Rules
+					{
+						icon = "business-law"
+					}
+					report All_Royalty_Rules
+					{
+						icon = "tech-desktop"
+					}
+				}
+				section Royalty_Payments
+				{
+					displayname = "Royalty Payments"
+					icon = "shopping-credit-card-in"
+					form  Royalty_Payments
+					{
+						icon = "shopping-credit-card-in"
+					}
+					report All_Royalty_Payments
+					{
+						icon = "tech-desktop"
+					}
+					report Royalty_Payments_Report
+					{
+						icon = "shopping-credit-card-in"
+					}
+				}
+				section Rights_Violations
+				{
+					displayname = "Rights Violations"
+					icon = "users-2-police"
+					form  Rights_Violations
+					{
+						icon = "users-2-police"
+					}
+					report All_Rights_Violations
+					{
+						icon = "tech-desktop"
+					}
+					report Rights_Violations_Report
+					{
+						icon = "users-2-police"
+					}
+					report Rights_Risk_Analytics
+					{
+						icon = "users-2-police"
+					}
+					report Open_Violations
+					{
+						icon = "users-2-police"
+					}
+				}
+				section MediaVault_Dashboard
+				{
+					displayname = "MediaVault Dashboard"
+					icon = "ui-1-dashboard-half"
+					page MediaVault_Dashboard
+					{
+						icon = "ui-1-dashboard-half"
+					}
+				}
+				section Content_Ownership
+				{
+					displayname = "Content_Ownership"
+					icon = "tech-desktop"
+					form  Content_Ownership
+					{
+						icon = "tech-desktop"
+					}
+					report Content_ownership_report2
+					{
+						icon = "tech-desktop"
+					}
+					report My_Ownership_Claims
+					{
+						icon = "tech-desktop"
+					}
+				}
+			}
+			preference
+			{
+				icon
+				{
+					style = outline
+				}
+			}
+		}
+		customize
+		{
+			font = "lato"
+			color options
+			{
+				color = "11"
+			}
+			logo
+			{
+				preference = "app_icon"
+				placement = "left"
+			}
+		}
+	}
+	phone
+	{
+		forms
+		{
+			form Content
+			{
+				label placement = auto
+			}
+			form Content_Ownership
+			{
+				label placement = auto
+			}
+			form Distribution_Requests
+			{
+				label placement = auto
+			}
+			form Licenses
+			{
+				label placement = auto
+			}
+			form Revenue
+			{
+				label placement = auto
+			}
+			form Rights_Holders
+			{
+				label placement = auto
+			}
+			form Rights_Violations
+			{
+				label placement = auto
+			}
+			form Royalty_Payments
+			{
+				label placement = auto
+			}
+			form Royalty_Rules
+			{
+				label placement = auto
+			}
+		}
+		customize
+		{
+			layout = twocolumn
+			font = "default"
+			style = "3"
+			color options
+			{
+				color = chryslerpurple
+			}
+			logo
+			{
+				preference = "none"
+			}
+		}
+	}
+	tablet
+	{
+		forms
+		{
+			form Content
+			{
+				label placement = auto
+			}
+			form Content_Ownership
+			{
+				label placement = auto
+			}
+			form Distribution_Requests
+			{
+				label placement = auto
+			}
+			form Licenses
+			{
+				label placement = auto
+			}
+			form Revenue
+			{
+				label placement = auto
+			}
+			form Rights_Holders
+			{
+				label placement = auto
+			}
+			form Rights_Violations
+			{
+				label placement = auto
+			}
+			form Royalty_Payments
+			{
+				label placement = auto
+			}
+			form Royalty_Rules
+			{
+				label placement = auto
+			}
+		}
+		customize
+		{
+			layout = slidingpane
+			font = "default"
+			style = "3"
+			color options
+			{
+				color = rose
+			}
+			logo
+			{
+				preference = "none"
+			}
+		}
+	}
+	translation
+{
+{"Language_Settings":{"LANGAGUE_WITH_LOGIN":"browser"}}
+}
+}
